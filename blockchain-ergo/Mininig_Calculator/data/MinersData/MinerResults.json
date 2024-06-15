@@ -1,0 +1,13 @@
+{
+    "17-08-2022": {
+        "price": 3.04878,
+        "network_hashrate": 11326952.05869,
+        "block_reward": 48.021979,
+        "watts_h": 1000.0,
+        "kw_h_price": 0.15,
+        "hours": 24.0,
+        "hashrate": 1000.0,
+        "miner-revenue": 9.31,
+        "miner-spending": 3.6
+    }
+}

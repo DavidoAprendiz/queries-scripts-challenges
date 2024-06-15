@@ -1,0 +1,10 @@
+{
+    "website": {
+        "user": "abcd",
+        "pass": "1234"
+    },
+    "website3": {
+        "user": "abc",
+        "pass": "abc123"
+    }
+}

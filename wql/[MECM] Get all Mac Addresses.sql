@@ -1,0 +1,1 @@
+select distinct SMS_R_System.Name, SMS_R_System.MACAddresses from  SMS_R_System

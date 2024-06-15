@@ -1,0 +1,2 @@
+$Baselines = Get-WmiObject -ComputerName $env:COMPUTERNAME -Namespace root\ccm\dcm -Class SMS_DesiredConfiguration | Where-Object {$_.DisplayName -eq "XXXXXXXXXXXXX"}
+$Baselines | % { ([wmiclass]"\\$env:COMPUTERNAME\root\ccm\dcm:SMS_DesiredConfiguration").TriggerEvaluation($_.Name, $_.Version) }
