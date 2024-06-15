@@ -3,25 +3,25 @@
 
 ### Challenges
 
-  - [Advent of Code - 2021](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/advent-of-code/2021)
+  - [Advent of Code - 2021](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/advent-of-code/2021)
 
 ### For Ergo
-  - [Ergo](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/main/blockchain-ergo)
-  - [DeCo](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/main/blockchain-ergo/DeCo)
-  - [GuapSwap](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/main/blockchain-ergo/guap-swap)
+  - [Ergo](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/blockchain-ergo)
+  - [DeCo](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/blockchain-ergo/DeCo)
+  - [GuapSwap](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/blockchain-ergo/guap-swap)
   - [Mining Calculator](https://github.com/DavidoAprendiz/ergo-miner-calc)
-    - [(OLD) Mining Calculator](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/main/ERGO/Mininig_Calculator)
+    - [(OLD) Mining Calculator](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/blockchain-ergo/Mininig_Calculator)
 
 ### Queries, Scripts, Programming Languages ...
-  - [CMD/Batch](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/main/cmd)
-  - [Haskell](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/main/haskell)
-  - [Powershell](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/main/powershell)
-  - [Python](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/main/python)
-  - [Scala](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/main/scala)
-  - [SQL](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/main/sql)
-  - [WQL](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/main/wql)
+  - [CMD/Batch](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/cmd)
+  - [Haskell](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/haskell)
+  - [Powershell](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/powershell)
+  - [Python](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/python)
+  - [Scala](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/scala)
+  - [SQL](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/sql)
+  - [WQL](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/wql)
 
 ### Github Actions
-  - [Rust](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/)
+  - [Rust](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/_github-actions/workflows)
 
 -----
