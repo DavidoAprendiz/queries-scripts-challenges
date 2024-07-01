@@ -1,5 +1,5 @@
 fn main() {
-    println!("\nCodeWars: count_by() -> {:?}", count_by());
+    println!("\nCodeWars: count_by() -> {:?}", count_by(50, 5));
 
     println!(
         "\nCodeWars: name_shuffler() -> {:?}",
@@ -31,11 +31,14 @@ fn main() {
         "\nCodeWars: warn_the_sheep() -> {}",
         warn_the_sheep(&["sheep", "wolf", "sheep", "sheep", "sheep", "sheep", "sheep"])
     );
+
+    println!(
+        "\nCodeWars: split_strings() -> {:?}",
+        split_strings("abcdefg")
+    );
 }
 
-fn count_by() -> Vec<u32> {
-    let x = 50;
-    let n = 5;
+fn count_by(x: u32, n: u32) -> Vec<u32> {
     let mut my_vec = vec![];
 
     for i in 1..=n {
@@ -74,18 +77,16 @@ fn make_upper_case(s: &str) -> String {
 
 fn zero_fuel(distance_to_pump: u32, mpg: u32, gallons: u32) -> bool {
     if distance_to_pump <= mpg * gallons {
-        true
-    } else {
-        false
+        return true;
     }
+    false
 }
 
 fn hero(bullets: u16, dragons: u16) -> bool {
     if bullets / 2 >= dragons {
-        true
-    } else {
-        false
+        return true;
     }
+    false
 }
 
 fn expressions_matter(a: u64, b: u64, c: u64) -> u64 {
@@ -95,7 +96,7 @@ fn expressions_matter(a: u64, b: u64, c: u64) -> u64 {
     // let forth = (a + b) * c;
     // let fifth = a + b + c;
 
-    *vec![a * (b + c), a * b * c, a + b * c, (a + b) * c, a + b + c]
+    *[a * (b + c), a * b * c, a + b * c, (a + b) * c, a + b + c]
         .iter()
         .max()
         .unwrap()
@@ -104,9 +105,9 @@ fn expressions_matter(a: u64, b: u64, c: u64) -> u64 {
 fn warn_the_sheep(queue: &[&str]) -> String {
     let mut result = String::new();
     for i in 0..queue.len() {
-        if queue[i].to_string() == "wolf".to_string() {
+        if String::from(queue[i]).contains("wolf") {
             if queue.len() - i == 1 {
-                result = format!("Pls go away and stop eating my sheep");
+                result = "Pls go away and stop eating my sheep".to_string();
             } else {
                 result = format!(
                     "Oi! Sheep number {}! You are about to be eaten by a wolf!",
@@ -116,4 +117,29 @@ fn warn_the_sheep(queue: &[&str]) -> String {
         }
     }
     result
+}
+
+fn split_strings(s: &str) -> Vec<String> {
+    let mut my_vec = Vec::new();
+    let mut my_vec2 = Vec::new();
+    let mut counter = 0;
+    let mut word = String::new();
+
+    for i in s.chars() {
+        my_vec.push(i.to_string())
+    }
+
+    while counter != my_vec.len() {
+        word.push_str(&my_vec[counter].to_owned());
+        if counter % 2 == 1 {
+            my_vec2.push(word.clone());
+            word = String::new();
+        }
+
+        counter += 1;
+    }
+    if !word.is_empty() {
+        my_vec2.push(word + "_");
+    }
+    my_vec2
 }
