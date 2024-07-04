@@ -1,3 +1,5 @@
+use std::ops::Neg;
+
 fn main() {
     println!("\nCodeWars: count_by() -> {:?}", count_by(50, 5));
 
@@ -36,6 +38,23 @@ fn main() {
         "\nCodeWars: split_strings() -> {:?}",
         split_strings("abcdefg")
     );
+
+    println!("\nCodeWars: series_sum() -> {:?}", series_sum(7));
+
+    println!(
+        "\nCodeWars: count_positives_sum_negatives() -> {:?}",
+        count_positives_sum_negatives(vec![1, -1, 0, -5, 5])
+    );
+
+    println!("\nCodeWars: get_age() -> {:?}", get_age("7 years old"));
+
+    println!("\nCodeWars: digitize() -> {:?}", digitize(348597));
+
+    println!("\nCodeWars: update_light() -> {:?}", update_light("green"));
+
+    println!("\nCodeWars: invert() -> {:?}", invert(&[1, 2, 3, 4, 5]));
+
+    println!("\nCodeWars: is_triangle() -> {:?}", is_triangle(1, 2, 2));
 }
 
 fn count_by(x: u32, n: u32) -> Vec<u32> {
@@ -142,4 +161,81 @@ fn split_strings(s: &str) -> Vec<String> {
         my_vec2.push(word + "_");
     }
     my_vec2
+}
+
+fn series_sum(n: u32) -> String {
+    match n {
+        0 => "0.00".to_string(),
+        _ => {
+            let mut denominator: f64 = 1.00;
+            let mut result: f64 = 1.00;
+
+            for _ in 1..n {
+                denominator += 3.00;
+                result += 1.00 / (denominator);
+            }
+            format!("{:.2}", result)
+        }
+    }
+}
+
+fn count_positives_sum_negatives(input: Vec<i32>) -> Vec<i32> {
+    let mut count = 0;
+    let mut sum = 0;
+    let mut my_vec = Vec::new();
+
+    if input.is_empty() {
+        return my_vec;
+    }
+    for num in input {
+        match num {
+            num if num > 0 => count += 1,
+            num if num < 0 => sum += num,
+            _ => (),
+        }
+    }
+    my_vec.push(count);
+    my_vec.push(sum);
+    my_vec
+}
+
+fn get_age(age: &str) -> u32 {
+    age.split_ascii_whitespace()
+        .next()
+        .unwrap()
+        .parse::<u32>()
+        .unwrap()
+}
+
+fn digitize(n: u64) -> Vec<u8> {
+    let mut my_vec = Vec::new();
+    for i in n.to_string().chars().rev() {
+        my_vec.push(i.to_digit(10).unwrap() as u8)
+    }
+    my_vec
+}
+
+fn update_light(current: &str) -> String {
+    match current {
+        "green" => "yellow",
+        "yellow" => "red",
+        "red" => "green",
+        _ => "",
+    }
+    .into()
+}
+
+fn invert(values: &[i32]) -> Vec<i32> {
+    let mut my_vec = Vec::new();
+    for i in values.iter() {
+        my_vec.push(i.neg());
+    }
+    my_vec
+}
+
+fn is_triangle(a: i64, b: i64, c: i64) -> bool {
+    if (a + b > c) && (a + c > b) && (b + c > a) {
+        return true;
+    }
+    false
 }
