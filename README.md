@@ -2,7 +2,8 @@
 
 ## Challenges
 
-- [Advent of Code - 2021](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/advent-of-code/2021)
+- [Advent of Code - 2015 - Rust](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/advent-of-code/2021)
+- [Advent of Code - 2021 - Python](https://github.com/DavidoAprendiz/queries-scripts-challenges/tree/master/advent-of-code/2021)
 
 ## For Ergo
 

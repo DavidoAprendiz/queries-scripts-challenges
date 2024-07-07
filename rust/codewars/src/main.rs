@@ -55,6 +55,8 @@ fn main() {
     println!("\nCodeWars: invert() -> {:?}", invert(&[1, 2, 3, 4, 5]));
 
     println!("\nCodeWars: is_triangle() -> {:?}", is_triangle(1, 2, 2));
+
+    println!("\nExercism: reverse() -> {:?}", reverse("abc"));
 }
 
 fn count_by(x: u32, n: u32) -> Vec<u32> {
@@ -238,4 +240,9 @@ fn is_triangle(a: i64, b: i64, c: i64) -> bool {
         return true;
     }
     false
+}
+
+// Exercism
+fn reverse(input: &str) -> String {
+    input.chars().rev().collect()
 }
