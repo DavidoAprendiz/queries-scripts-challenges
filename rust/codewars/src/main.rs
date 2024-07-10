@@ -57,7 +57,20 @@ fn main() {
     println!("\nCodeWars: is_triangle() -> {:?}", is_triangle(1, 2, 2));
 
     println!("\nExercism: reverse() -> {:?}", reverse("abc"));
+
+    println!("\nCodeWars: get_count() -> {:?}", get_count("abracadabra"));
+
+    println!("\nCodeWars: move_hero() -> {:?}", move_hero(3, 6));
+
+    println!("\nCodeWars: accum() -> {:?}", accum("ZpglnRxqenU"));
+
+    println!(
+        "\nCodeWars: string_to_array() -> {:?}",
+        string_to_array("Robin Singh")
+    );
 }
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 fn count_by(x: u32, n: u32) -> Vec<u32> {
     let mut my_vec = vec![];
@@ -245,4 +258,66 @@ fn is_triangle(a: i64, b: i64, c: i64) -> bool {
 // Exercism
 fn reverse(input: &str) -> String {
     input.chars().rev().collect()
+}
+
+fn get_count(string: &str) -> usize {
+    let mut vowels_count: usize = 0;
+
+    // test1
+    for i in string.chars() {
+        match i {
+            'a' => vowels_count += 1,
+            'e' => vowels_count += 1,
+            'i' => vowels_count += 1,
+            'o' => vowels_count += 1,
+            'u' => vowels_count += 1,
+            _ => (),
+        }
+    }
+    // test2
+    for i in string.chars() {
+        match i {
+            char if char == 'a' || char == 'e' || char == 'i' || char == 'o' || char == 'u' => {
+                vowels_count += 1
+            }
+            _ => (),
+        }
+    }
+    // test3
+    vowels_count = 0; // reset after test 1 e 2
+    for i in string.chars() {
+        match i {
+            'a' | 'e' | 'i' | 'o' | 'u' => vowels_count += 1,
+            _ => (),
+        }
+    }
+
+    vowels_count
+}
+
+fn move_hero(position: u32, roll: u32) -> u32 {
+    position + roll * 2
+}
+
+fn accum(s: &str) -> String {
+    let mut my_string = String::new();
+
+    for (i, c) in s.chars().enumerate() {
+        let a = &String::from(c).to_uppercase();
+        my_string += a;
+        my_string += &a.repeat(i).to_lowercase().to_string();
+        if i != s.len() - 1 {
+            my_string += "-";
+        }
+    }
+    my_string
+}
+
+fn string_to_array(s: &str) -> Vec<String> {
+    let mut my_vec = vec![];
+    for i in s.split(' ') {
+        my_vec.push(i.to_owned());
+    }
+
+    my_vec
 }
