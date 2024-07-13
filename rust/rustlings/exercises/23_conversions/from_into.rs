@@ -13,8 +13,6 @@ struct Person {
     age: usize,
 }
 
-// We implement the Default trait to use it as a fallback
-// when the provided string is not convertible into a Person object
 impl Default for Person {
     fn default() -> Person {
         Person {
@@ -24,33 +22,37 @@ impl Default for Person {
     }
 }
 
-
-// Your task is to complete this implementation in order for the line `let p1 =
-// Person::from("Mark,20")` to compile. Please note that you'll need to parse the
-// age component into a `usize` with something like `"4".parse::<usize>()`. The
-// outcome of this needs to be handled appropriately.
-//
-// Steps:
-// 1. If the length of the provided string is 0, then return the default of
-//    Person.
-// 2. Split the given string on the commas present in it.
-// 3. Extract the first element from the split operation and use it as the name.
-// 4. If the name is empty, then return the default of Person.
-// 5. Extract the other element from the split operation and parse it into a
-//    `usize` as the age.
-// If while parsing the age, something goes wrong, then return the default of
-// Person Otherwise, then return an instantiated Person object with the results
-
-// I AM NOT DONE
-
 impl From<&str> for Person {
-    fn from(s: &str) -> Person {}
+    fn from(s: &str) -> Person {
+        if s.len() == 0 || !s.contains(",") {
+            return Person::default();
+        }
+
+        let str_split: Vec<&str> = s.split(',').collect();
+        let str_name = str_split[0].to_string();
+
+        if str_name.is_empty() || str_split.len() > 2 {
+            return Person::default();
+        }
+
+        match str_split[1].parse::<usize>() {
+            Ok(str_age) => {
+                if str_age == 0 {
+                    return Person::default();
+                } else {
+                    return Person {
+                        name: str_name,
+                        age: str_age,
+                    };
+                }
+            }
+            _ => return Person::default(),
+        }
+    }
 }
 
 fn main() {
-    // Use the `from` function
     let p1 = Person::from("Mark,20");
-    // Since From is implemented for Person, we should be able to use Into
     let p2: Person = "Gerald,70".into();
     println!("{:?}", p1);
     println!("{:?}", p2);

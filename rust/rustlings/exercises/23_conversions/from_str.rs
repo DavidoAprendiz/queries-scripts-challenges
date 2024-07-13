@@ -18,36 +18,45 @@ struct Person {
     age: usize,
 }
 
-// We will use this error type for the `FromStr` implementation.
 #[derive(Debug, PartialEq)]
 enum ParsePersonError {
-    // Empty input string
     Empty,
-    // Incorrect number of fields
     BadLen,
-    // Empty name field
     NoName,
-    // Wrapped error from parse::<usize>()
     ParseInt(ParseIntError),
 }
-
-// I AM NOT DONE
-
-// Steps:
-// 1. If the length of the provided string is 0, an error should be returned
-// 2. Split the given string on the commas present in it
-// 3. Only 2 elements should be returned from the split, otherwise return an
-//    error
-// 4. Extract the first element from the split operation and use it as the name
-// 5. Extract the other element from the split operation and parse it into a
-//    `usize` as the age with something like `"4".parse::<usize>()`
-// 6. If while extracting the name and the age something goes wrong, an error
-//    should be returned
-// If everything goes well, then return a Result of a Person object
 
 impl FromStr for Person {
     type Err = ParsePersonError;
     fn from_str(s: &str) -> Result<Person, Self::Err> {
+        if s.len() == 0 {
+            return Err(ParsePersonError::Empty);
+        } else if !s.contains(",") {
+            return Err(ParsePersonError::BadLen);
+        }
+
+        let str_split: Vec<&str> = s.split(',').collect();
+        let str_name = str_split[0].to_string();
+
+        if str_name.is_empty() {
+            return Err(ParsePersonError::NoName);
+        } else if str_split.len() > 2 {
+            return Err(ParsePersonError::BadLen);
+        }
+
+        match str_split[1].parse::<usize>() {
+            Ok(str_age) => {
+                if str_age == 0 {
+                    return Err(ParsePersonError::BadLen);
+                } else {
+                    return Ok(Person {
+                        name: str_name,
+                        age: str_age,
+                    });
+                }
+            }
+            Err(e) => return Err(ParsePersonError::ParseInt(e)),
+        }
     }
 }
 
