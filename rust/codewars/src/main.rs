@@ -68,9 +68,67 @@ fn main() {
         "\nCodeWars: string_to_array() -> {:?}",
         string_to_array("Robin Singh")
     );
+
+    println!(
+        "\nCodeWars: get_volume_of_cuboid() -> {:?}",
+        get_volume_of_cuboid(1.0, 2.0, 3.0)
+    );
+
+    println!("\nCodeWars: get_char() -> {}", get_char(72));
+
+    println!(
+        "\nCodeWars: two_sort() -> {}",
+        two_sort(&[
+            "z", "bitcoin", "take", "over", "the", "world", "maybe", "who", "knows", "perhaps"
+        ])
+    );
+
+    println!(
+        "\nCodeWars: fake_bin() -> {}",
+        fake_bin("45385593107843568")
+    );
+
+    println!(
+        "\nCodeWars: odd_or_even() -> {}",
+        odd_or_even(vec![
+            0, 1, -5, 1, 2, 31, 123, 451, 511414, 12313, 123, 3123, 451, 21, 1,
+        ])
+    );
+
+    println!(
+        "\nCodeWars: bin_to_decimal() -> {}",
+        bin_to_decimal("1001001")
+    );
+
+    println!("\nCodeWars: hello() -> {}", hello("tEsTE"));
+
+    println!("\nCodeWars: count_sheep() -> {}", count_sheep(2));
+
+    println!(
+        "\nCodeWars: remove_exclamation_marks() -> {}",
+        remove_exclamation_marks("Testes!!! te!st!es!")
+    );
+
+    println!(
+        "\nCodeWars: open_or_senior() -> {:?}",
+        open_or_senior(vec![(45, 12), (55, 21), (19, -2), (104, 20)])
+    );
+
+    println!("\nCodeWars: order() -> {:?}", order("is2 Thi1s T4est 3a"));
+
+    println!(
+        "\nCodeWars: find_difference() -> {:?}",
+        find_difference(&[3, 2, 5], &[1, 4, 4])
+    );
+
+    println!("\n");
 }
 
-////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 fn count_by(x: u32, n: u32) -> Vec<u32> {
     let mut my_vec = vec![];
@@ -320,4 +378,124 @@ fn string_to_array(s: &str) -> Vec<String> {
     }
 
     my_vec
+}
+
+fn get_volume_of_cuboid(length: f32, width: f32, height: f32) -> f32 {
+    length * width * height
+}
+
+fn get_char(c: i32) -> char {
+    std::char::from_u32(c as u32).unwrap()
+}
+
+fn two_sort(arr: &[&str]) -> String {
+    let mut my_vec: Vec<_> = vec![];
+    for l in arr {
+        my_vec.push(l)
+    }
+    my_vec.sort();
+
+    let mut final_word: String = "".to_string();
+    let mut word_length = my_vec[0].len();
+
+    for c in my_vec[0].chars() {
+        final_word.push(c);
+        word_length -= 1;
+        if word_length == 0 {
+            break;
+        }
+        final_word.push_str("***");
+    }
+    final_word
+}
+fn fake_bin(s: &str) -> String {
+    let mut my_string = String::new();
+    for c in s.chars() {
+        if c.to_digit(10).unwrap() < 5 {
+            my_string.push('0')
+        } else {
+            my_string.push('1')
+        }
+    }
+    my_string
+}
+
+fn odd_or_even(numbers: Vec<i32>) -> String {
+    let mut result = 0;
+    for n in numbers {
+        result += n;
+    }
+    if result % 2 == 0 {
+        "is even".to_string()
+    } else {
+        "is odd".to_string()
+    }
+}
+
+fn bin_to_decimal(inp: &str) -> i32 {
+    i32::from_str_radix(inp, 2).unwrap()
+}
+
+fn hello(name: &str) -> String {
+    match name {
+        n if !n.is_empty() => format!(
+            "Hello, {}{}",
+            n[..1].to_ascii_uppercase(),
+            n[1..].to_ascii_lowercase()
+        ),
+        _ => "".to_string(),
+    }
+}
+
+fn count_sheep(n: u32) -> String {
+    if n == 0 {
+        return "".to_string();
+    }
+    let mut my_string = String::new();
+    for i in 1..(n + 1) {
+        my_string.push_str(i.to_string().as_str());
+        my_string.push_str(" sheep...")
+    }
+    my_string
+}
+
+fn remove_exclamation_marks(input: &str) -> String {
+    input.replace('!', "")
+}
+
+fn open_or_senior(data: Vec<(i32, i32)>) -> Vec<String> {
+    let mut my_vec = vec![];
+    for (age, hand) in data {
+        if age >= 55 && hand > 7 {
+            my_vec.push("Senior".to_string())
+        } else {
+            my_vec.push("Open".to_string())
+        }
+    }
+    my_vec
+}
+
+fn order(sentence: &str) -> String {
+    let mut words: Vec<&str> = sentence.split(' ').collect();
+    let mut count = 0;
+    while count != words.len() + 1 {
+        words.sort_by_key(|a| a.contains(&count.to_string()));
+        count += 1;
+    }
+    let mut my_string = String::new();
+    for w in &words {
+        my_string.push_str(w);
+        if w == words.last().unwrap() {
+            break;
+        }
+        my_string.push(' ');
+    }
+    // for i in 0..my_string.len() {
+    //     my_string = my_string.replace(&i.to_string(), "");
+    // }
+    my_string
+}
+
+fn find_difference(a: &[i32; 3], b: &[i32; 3]) -> i32 {
+    (a[0] * a[1] * a[2] - b[0] * b[1] * b[2]).abs()
 }
