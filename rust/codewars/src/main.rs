@@ -114,18 +114,37 @@ fn main() {
         open_or_senior(vec![(45, 12), (55, 21), (19, -2), (104, 20)])
     );
 
-    println!("\nCodeWars: order() -> {:?}", order("is2 Thi1s T4est 3a"));
+    println!("\nCodeWars: order() -> {}", order("is2 Thi1s T4est 3a"));
 
     println!(
-        "\nCodeWars: find_difference() -> {:?}",
+        "\nCodeWars: find_difference() -> {}",
         find_difference(&[3, 2, 5], &[1, 4, 4])
     );
+
+    println!("\nCodeWars: xo() -> {}", xo("xo"));
+
+    println!("\nCodeWars: combat() -> {}", combat(200.0, 30.0));
+
+    println!(
+        "\nCodeWars: to_alternating_case() -> {}",
+        to_alternating_case("hello world")
+    );
+
+    println!("\nCodeWars: tower_builder() -> {:?}", tower_builder(16));
+
+    println!("\nCodeWars: number() -> {:?}", number(&["a", "b", "c"]));
+
+    println!("\nCodeWars: abbrev_name() -> {}", abbrev_name("Sam Harris"));
+
+    println!("\nCodeWars: expanded_form() -> {}", expanded_form(42));
+
+    println!("\nCodeWars: basic_op() -> {}", basic_op('+', 4, 7));
 
     println!("\n");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -498,4 +517,104 @@ fn order(sentence: &str) -> String {
 
 fn find_difference(a: &[i32; 3], b: &[i32; 3]) -> i32 {
     (a[0] * a[1] * a[2] - b[0] * b[1] * b[2]).abs()
+}
+
+fn xo(string: &'static str) -> bool {
+    if !string.to_lowercase().to_string().contains('x')
+        && !string.to_lowercase().to_string().contains('o')
+    {
+        true
+    } else {
+        string
+            .chars()
+            .filter(|f| f.to_lowercase().to_string() == "x")
+            .count()
+            == string
+                .chars()
+                .filter(|f| f.to_lowercase().to_string() == "o")
+                .count()
+    }
+}
+
+fn combat(health: f32, damage: f32) -> f32 {
+    if health - damage < 0.0 {
+        return 0.0;
+    }
+    health - damage
+}
+
+fn to_alternating_case(s: &str) -> String {
+    let mut final_string: String = String::new();
+    for c in s.chars() {
+        if c.is_ascii_lowercase() {
+            final_string.push_str(c.to_uppercase().to_string().as_str())
+        } else {
+            final_string.push_str(c.to_lowercase().to_string().as_str())
+        }
+    }
+    final_string
+}
+
+fn tower_builder(n_floors: usize) -> Vec<String> {
+    let mut my_vec: Vec<String> = vec![];
+    let mut spaces = " ".repeat(n_floors - 1);
+    if n_floors == 1 {
+        my_vec.push(String::from("*"));
+        return my_vec;
+    }
+    for (counter, n) in (1..n_floors + 1).enumerate() {
+        my_vec.push(spaces.clone());
+        my_vec[n - 1].push_str("*".repeat(n + counter).as_str());
+        my_vec[n - 1].push_str(spaces.clone().as_str());
+        if !spaces.is_empty() {
+            spaces.pop().unwrap();
+        }
+        // counter += 1;
+    }
+    // println!("\n");
+    // for i in my_vec.iter() {
+    //     println!("{}", i)
+    // }
+    my_vec
+}
+
+fn number(lines: &[&str]) -> Vec<String> {
+    let mut my_vec = vec![];
+    for (i, l) in lines.iter().enumerate() {
+        my_vec.push(format!("{}: {}", i + 1, l));
+    }
+    my_vec
+}
+
+fn abbrev_name(name: &str) -> String {
+    let my_string: Vec<&str> = name.split(' ').collect();
+    format!(
+        "{}.{}",
+        my_string[0].chars().next().unwrap().to_uppercase(),
+        my_string[1].chars().next().unwrap().to_uppercase(),
+    )
+}
+
+fn expanded_form(n: u64) -> String {
+    let mut n_length = n.to_string().len();
+    let mut my_string = String::new();
+
+    for num in n.to_string().chars() {
+        n_length = n_length.saturating_sub(1);
+        if num != '0' {
+            my_string.push_str(format!("{}{} ", num, "0".repeat(n_length)).as_str())
+        }
+    }
+    my_string = my_string[..my_string.len() - 1].replace(' ', " + ");
+    my_string
+}
+
+fn basic_op(operator: char, value1: i32, value2: i32) -> i32 {
+    match operator {
+        '+' => value1 + value2,
+        '-' => value1 - value2,
+        '*' => value1 * value2,
+        '/' => value1 / value2,
+        _ => 0,
+    }
 }
