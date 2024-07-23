@@ -1,3 +1,4 @@
+use either::Either;
 use std::ops::Neg;
 
 fn main() {
@@ -139,6 +140,39 @@ fn main() {
     println!("\nCodeWars: expanded_form() -> {}", expanded_form(42));
 
     println!("\nCodeWars: basic_op() -> {}", basic_op('+', 4, 7));
+
+    println!(
+        "\nCodeWars: sum_mix() -> {}",
+        sum_mix(&[
+            Either::Left(9),
+            Either::Left(3),
+            Either::Right("7".to_string()),
+            Either::Right("3".to_string()),
+            Either::Right("None".to_string())
+        ])
+    );
+
+    println!("\nCodeWars: double_char() -> {}", double_char("testing"));
+
+    println!("\nCodeWars: dna_to_rna() -> {}", dna_to_rna("TGTT"));
+
+    println!(
+        "\nCodeWars: no_space() -> {}",
+        no_space("8 j 8   mBliB8g  imjB8B8  jl  B".to_string())
+    );
+
+    println!("\nCodeWars: likes() -> {}", likes(&["Jacob", "Alex"]));
+
+    println!("\nCodeWars: multi_table() -> {}", multi_table(5));
+
+    println!("\nCodeWars: is_it_letter() -> {}", is_it_letter('f'));
+
+    println!("\nCodeWars: count_red_beads() -> {}", count_red_beads(6));
+
+    println!(
+        "\nCodeWars: remove_every_other() -> {:?}",
+        remove_every_other(&[1, 2, 3, 4, 5, 6, 7])
+    );
 
     println!("\n");
 }
@@ -617,4 +651,78 @@ fn basic_op(operator: char, value1: i32, value2: i32) -> i32 {
         '/' => value1 / value2,
         _ => 0,
     }
+}
+
+fn sum_mix(arr: &[Either<i32, String>]) -> i32 {
+    let mut my_num: i32 = 0;
+    for n in arr.iter() {
+        if n.is_left() {
+            my_num += n.clone().unwrap_left()
+        } else if n.is_right() {
+            for num in n.clone().unwrap_right().chars() {
+                if !num.is_alphabetic() {
+                    my_num += num.to_digit(10).unwrap() as i32
+                }
+            }
+        }
+    }
+    my_num
+}
+
+fn double_char(s: &str) -> String {
+    s.chars().map(|c| c.to_string().repeat(2)).collect()
+}
+
+fn dna_to_rna(dna: &str) -> String {
+    dna.replace('T', "U")
+}
+
+fn no_space(x: String) -> String {
+    x.split_ascii_whitespace().collect()
+}
+
+fn likes(names: &[&str]) -> String {
+    match names.len() {
+        0 => "no one likes this".to_string(),
+        1 => format!("{} likes this", names[0]),
+        2 => format!("{} and {} likes this", names[0], names[1]),
+        3 => format!("{}, {} and {} likes this", names[0], names[1], names[2]),
+        _ => format!(
+            "{}, {} and {} others likes this",
+            names[0],
+            names[1],
+            names.len() - 2
+        ),
+    }
+}
+fn multi_table(n: u64) -> String {
+    let mut my_str: String = String::new();
+    for i in 1..=10 {
+        my_str.push_str(format!("{} * {} = {}", i, n, n * i).as_str());
+        if i != 10 {
+            my_str.push('\n');
+        }
+    }
+    my_str
+}
+
+fn is_it_letter(c: char) -> bool {
+    c.is_alphabetic()
+}
+
+fn count_red_beads(n: u32) -> u32 {
+    if n < 2 {
+        return 0;
+    }
+    (n * 2) - 2
+}
+
+fn remove_every_other(arr: &[u8]) -> Vec<u8> {
+    let mut my_arr = vec![];
+    for (i, num) in arr.iter().enumerate() {
+        if i % 2 == 0 {
+            my_arr.push(num.to_owned())
+        }
+    }
+    my_arr
 }
