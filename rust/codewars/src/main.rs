@@ -174,6 +174,51 @@ fn main() {
         remove_every_other(&[1, 2, 3, 4, 5, 6, 7])
     );
 
+    println!("\nCodeWars: greet() -> {}", greet("english"));
+
+    println!(
+        "\nCodeWars: find_short() -> {}",
+        find_short("bitcoin take over the world maybe who knows perhaps")
+    );
+
+    println!("\nCodeWars: duty_free() -> {}", duty_free(12, 50, 1000));
+
+    println!(
+        "\nCodeWars: sum_two_smallest_numbers() -> {}",
+        sum_two_smallest_numbers(&[15, 28, 4, 2, 43])
+    );
+
+    println!(
+        "\nCodeWars: get_drink_by_profession() -> {}",
+        get_drink_by_profession("jabrOni")
+    );
+
+    println!("\nCodeWars: set_alarm() -> {}", set_alarm(true, false));
+
+    println!(
+        "\nCodeWars: check_exam() -> {}",
+        check_exam(&["a", "a", "b", "b"], &["a", "c", "b", "d"])
+    );
+    println!(
+        "\nCodeWars: unique_in_order() -> {:?}",
+        unique_in_order("AAAABBBCCDAABBB".chars())
+    );
+
+    println!("\nCodeWars: validate_pin() -> {}", validate_pin("090909"));
+
+    println!("\nCodeWars: greet2() -> {}", greet2("name", "name"));
+
+    println!("\nCodeWars: add_length() -> {:?}", add_length("apple ban"));
+
+    println!("\nCodeWars: hex_to_dec() -> {}", hex_to_dec("A"));
+
+    println!("\nCodeWars: min_value() -> {}", min_value(vec![1, 3, 1]));
+
+    println!(
+        "\nCodeWars: sort_numbers() -> {:?}",
+        sort_numbers(&[1, 2, 3, 10, 5])
+    );
+
     println!("\n");
 }
 
@@ -725,4 +770,152 @@ fn remove_every_other(arr: &[u8]) -> Vec<u8> {
         }
     }
     my_arr
+}
+
+fn greet(language: &str) -> &str {
+    let db = [
+        ("english", "Welcome"),
+        ("czech", "Vitejte"),
+        ("danish", "Velkomst"),
+        ("dutch", "Welkom"),
+        ("estonian", "Tere tulemast"),
+        ("finnish", "Tervetuloa"),
+        ("flemish", "Welgekomen"),
+        ("french", "Bienvenue"),
+        ("german", "Willkommen"),
+        ("irish", "Failte"),
+        ("italian", "Benvenuto"),
+        ("latvian", "Gaidits"),
+        ("lithuanian", "Laukiamas"),
+        ("polish", "Witamy"),
+        ("spanish", "Bienvenido"),
+        ("swedish", "Valkommen"),
+        ("welsh", "Croeso"),
+    ];
+
+    for lang in db {
+        if lang.0 == language {
+            return lang.1;
+        }
+    }
+    "Welcome"
+}
+
+fn find_short(s: &str) -> u32 {
+    let mut min_num = 999;
+    //your code here
+    for l in s.split(' ') {
+        if l.len().lt(&min_num) {
+            min_num = l.len();
+        }
+    }
+    min_num as u32
+}
+
+fn duty_free(price: i32, discount: i32, holiday_cost: i32) -> i32 {
+    (holiday_cost as f32 / (price as f32 * (discount as f32 / 100.0))) as i32
+}
+
+fn sum_two_smallest_numbers(numbers: &[u32]) -> u32 {
+    let mut my_vec = numbers.to_owned();
+    my_vec.sort();
+    my_vec[0] + my_vec[1]
+}
+
+fn get_drink_by_profession(param: &str) -> &'static str {
+    match param.to_lowercase().as_str() {
+        "jabroni" => "Patron Tequila",
+        "school counselor" => "Anything with Alcohol",
+        "programmer" => "Hipster Craft Beer",
+        "bike gang member" => "Moonshine",
+        "politician" => "Your tax dollars",
+        "rapper" => "Cristal",
+        _ => "Beer",
+    }
+}
+
+fn set_alarm(employed: bool, vacation: bool) -> bool {
+    matches!((employed, vacation), (true, false))
+}
+
+fn check_exam(arr_a: &[&str], arr_b: &[&str]) -> i64 {
+    let mut total = 0;
+    for i in 0..4 {
+        match () {
+            _ if arr_b[i].is_empty() => total += 0,
+            _ if arr_a[i].ne(arr_b[i]) => total -= 1,
+            _ if arr_a[i].eq(arr_b[i]) => total += 4,
+            _ => total += 0,
+        }
+    }
+    if total <= 0 {
+        0
+    } else {
+        total
+    }
+}
+
+fn unique_in_order<T>(sequence: T) -> Vec<T::Item>
+where
+    T: std::iter::IntoIterator,
+    T::Item: std::cmp::PartialEq + std::fmt::Debug,
+{
+    let mut my_vec: Vec<_> = vec![];
+    for s in sequence.into_iter() {
+        if !my_vec.is_empty() {
+            if my_vec.last().unwrap() != &s {
+                my_vec.push(s)
+            }
+        } else {
+            my_vec.push(s)
+        }
+    }
+    my_vec
+}
+
+fn validate_pin(pin: &str) -> bool {
+    if pin.len() == 6 || pin.len() == 4 {
+        for p in pin.chars() {
+            if !p.is_ascii_digit() {
+                return false;
+            }
+        }
+        return true;
+    }
+    false
+}
+
+fn greet2(name: &str, owner: &str) -> String {
+    if name == owner {
+        "Hello boss".to_string()
+    } else {
+        "Hello guest".to_string()
+    }
+}
+
+fn add_length(s: &str) -> Vec<String> {
+    s.split_whitespace()
+        .map(|x| format!("{} {}", x, x.len()))
+        .collect()
+}
+
+fn hex_to_dec(hex_string: &str) -> u32 {
+    u32::from_str_radix(hex_string, 16).unwrap()
+}
+
+fn min_value(mut digits: Vec<i32>) -> i32 {
+    digits.sort();
+    digits.dedup();
+    digits
+        .iter()
+        .map(|x| x.to_string())
+        .collect::<String>()
+        .parse::<i32>()
+        .unwrap()
+}
+
+fn sort_numbers(arr: &[i32]) -> Vec<i32> {
+    let mut my_vec: Vec<i32> = arr.to_owned();
+    my_vec.sort();
+    my_vec
 }
