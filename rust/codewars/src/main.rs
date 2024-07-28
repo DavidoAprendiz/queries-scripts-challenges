@@ -1,5 +1,5 @@
 use either::Either;
-use std::ops::Neg;
+use std::{ops::Neg, u8};
 
 fn main() {
     println!("\nCodeWars: count_by() -> {:?}", count_by(50, 5));
@@ -219,6 +219,25 @@ fn main() {
         sort_numbers(&[1, 2, 3, 10, 5])
     );
 
+    println!("\nCodeWars: divisors() -> {}", divisors(25));
+
+    println!(
+        "\nCodeWars: merge_arrays() -> {:?}",
+        merge_arrays(&[1, 3, 5, 7, 9, 11, 12], &[1, 2, 3, 4, 5, 10, 12])
+    );
+
+    println!(
+        "\nCodeWars: row_weights() -> {:?}",
+        row_weights(vec![13, 27, 49])
+    );
+
+    println!(
+        "\nCodeWars: sum_of_minimums() -> {}",
+        sum_of_minimums([[7, 9, 8, 6], [6, 5, 4, 3], [5, 7, 4, 5], [7, 9, 4, 3]])
+    );
+
+    // TODO
+    // println!("\nCodeWars: () -> {}", );
     println!("\n");
 }
 
@@ -918,4 +937,55 @@ fn sort_numbers(arr: &[i32]) -> Vec<i32> {
     let mut my_vec: Vec<i32> = arr.to_owned();
     my_vec.sort();
     my_vec
+}
+
+fn divisors(n: u32) -> u32 {
+    let mut my_num = 0;
+    for i in 1..=n {
+        if n % i == 0 {
+            my_num += 1;
+        }
+    }
+    my_num
+}
+
+fn merge_arrays(arr1: &[i32], arr2: &[i32]) -> Vec<i32> {
+    let mut my_vec: Vec<i32> = vec![];
+    my_vec.extend(arr1);
+    my_vec.extend(arr2);
+    my_vec.sort();
+    my_vec.dedup();
+
+    my_vec
+}
+
+fn row_weights(array: Vec<u32>) -> (u32, u32) {
+    let mut team1 = 0;
+    let mut team2 = 0;
+    for (i, num) in array.iter().enumerate() {
+        if i % 2 == 0 {
+            team1 += num
+        } else {
+            team2 += num
+        }
+    }
+    (team1, team2)
+}
+
+fn sum_of_minimums(numbers: [[u8; 4]; 4]) -> u8 {
+    //     let mut total = 0;
+    //     for mut line in numbers {
+    //         line.sort();
+    //         total += line[0];
+    //     }
+    //     total
+
+    numbers
+        .iter()
+        .copied()
+        .map(|mut x| {
+            x.sort();
+            x[0]
+        })
+        .sum()
 }
