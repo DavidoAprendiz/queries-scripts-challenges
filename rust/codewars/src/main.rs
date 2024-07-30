@@ -1,5 +1,5 @@
 use either::Either;
-use std::{ops::Neg, u8};
+use std::ops::Neg;
 
 fn main() {
     println!("\nCodeWars: count_by() -> {:?}", count_by(50, 5));
@@ -235,6 +235,38 @@ fn main() {
         "\nCodeWars: sum_of_minimums() -> {}",
         sum_of_minimums([[7, 9, 8, 6], [6, 5, 4, 3], [5, 7, 4, 5], [7, 9, 4, 3]])
     );
+
+    println!("\nCodeWars: power_of_two() -> {}", power_of_two(8));
+
+    println!(
+        "\nCodeWars: sort_by_length() -> {:?}",
+        sort_by_length(&[
+            String::from("beg"),
+            String::from("life"),
+            String::from("i"),
+            String::from("to")
+        ])
+    );
+
+    println!("\nCodeWars: usdcny() -> {}", usdcny(465));
+
+    println!("\nCodeWars: powers_of_two() -> {:?}", powers_of_two(2));
+
+    println!("\nCodeWars: digits() -> {}", digits(1234163541513));
+
+    println!("\nCodeWars: greet3() -> {}", greet3("teStes"));
+
+    println!(
+        "\nCodeWars: shark() -> {}",
+        shark(12.0, 50.0, 4.0, 8.0, true)
+    );
+
+    println!(
+        "\nCodeWars: points() -> {}",
+        points(&["1:0", "2:0", "3:0", "4:0", "2:1", "3:1", "4:1", "3:2", "4:2", "4:3"])
+    );
+
+    println!("\nCodeWars: plural() -> {}", plural(1.0));
 
     // TODO
     // println!("\nCodeWars: () -> {}", );
@@ -988,4 +1020,71 @@ fn sum_of_minimums(numbers: [[u8; 4]; 4]) -> u8 {
             x[0]
         })
         .sum()
+}
+
+fn power_of_two(x: u64) -> bool {
+    x.is_power_of_two()
+}
+
+fn sort_by_length(arr: &[String]) -> Vec<String> {
+    let mut my_vec = arr.iter().map(|x| x.to_owned()).collect::<Vec<String>>();
+    my_vec.sort_by_key(|x| x.len());
+    my_vec
+}
+
+fn usdcny(usd: u16) -> String {
+    format!("{:.2} Chinese Yuan", (usd as f32 * 6.75))
+}
+
+fn powers_of_two(n: u8) -> Vec<u128> {
+    let mut my_vec = vec![1];
+    for _ in 1..=n {
+        my_vec.push(my_vec.last().unwrap() * 2)
+    }
+    my_vec
+}
+
+fn digits(n: u64) -> usize {
+    n.to_string().len()
+}
+
+fn greet3(name: &str) -> String {
+    format!(
+        "Hello {}{}!",
+        name[..=0].to_uppercase(),
+        name[1..name.len()].to_lowercase()
+    )
+}
+fn shark(
+    pontoon_distance: f64,
+    shark_distance: f64,
+    you_speed: f64,
+    shark_speed: f64,
+    dolphin: bool,
+) -> String {
+    let mut shark_velocity = shark_distance / shark_speed;
+    if dolphin {
+        shark_velocity = shark_distance / (shark_speed / 2.0);
+    };
+    if (pontoon_distance / you_speed) > shark_velocity {
+        "Shark Bait!".to_string()
+    } else {
+        "Alive!".to_string()
+    }
+}
+
+fn points(games: &[&str]) -> u32 {
+    let mut total = 0;
+    for game in games.iter() {
+        match game {
+            win if win.chars().next() > win.chars().nth(2) => total += 3,
+            draw if draw.chars().next() == draw.chars().nth(2) => total += 1,
+            _ => (),
+        }
+    }
+    total
+}
+
+fn plural(n: f64) -> bool {
+    n != 1.0
 }
