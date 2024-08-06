@@ -1,5 +1,5 @@
 use either::Either;
-use std::ops::Neg;
+use std::{ops::Neg, u32, vec};
 
 fn main() {
     println!("\nCodeWars: count_by() -> {:?}", count_by(50, 5));
@@ -267,6 +267,36 @@ fn main() {
     );
 
     println!("\nCodeWars: plural() -> {}", plural(1.0));
+
+    println!(
+        "\nCodeWars: how_many_lightsabers_do_you_own() -> {}",
+        how_many_lightsabers_do_you_own("")
+    );
+
+    println!(
+        "\nCodeWars: find_average() -> {}",
+        find_average(&[
+            17.0, 16.0, 16.0, 16.0, 16.0, 15.0, 17.0, 17.0, 15.0, 5.0, 17.0, 17.0, 16.0,
+        ])
+    );
+
+    println!("\nCodeWars: century() -> {}", century(2002));
+
+    println!("\nCodeWars: nb_year() -> {}", nb_year(1500, 5.0, 100, 5000));
+
+    println!(
+        "\nCodeWars: remove_smallest() -> {:?}",
+        remove_smallest(&[5, 3, 2, 1, 4])
+    );
+
+    println!("\nCodeWars: square_digits() -> {}", square_digits(9119));
+
+    println!(
+        "\nCodeWars: positive_sum() -> {}",
+        positive_sum(&[1, -2, 3, 4, 5])
+    );
+
+    println!("\nCodeWars: generate_shape() -> {}", generate_shape(3));
 
     // TODO
     // println!("\nCodeWars: () -> {}", );
@@ -1087,4 +1117,86 @@ fn points(games: &[&str]) -> u32 {
 
 fn plural(n: f64) -> bool {
     n != 1.0
+}
+
+fn how_many_lightsabers_do_you_own(name: &str) -> u8 {
+    match name {
+        "Zach" => 18,
+        _ => 0,
+    }
+}
+
+fn find_average(slice: &[f64]) -> f64 {
+    let mut avg = 0.0;
+    if slice.is_empty() {
+        return 0.0;
+    }
+    for i in slice {
+        avg += i.to_owned();
+    }
+    avg / slice.len() as f64
+}
+
+fn century(year: u32) -> u32 {
+    match year % 2 {
+        0 => year / 100,
+        _ => (year / 100) + 1,
+    }
+}
+
+fn nb_year(p0: i32, percent: f64, aug: i32, p: i32) -> i32 {
+    let mut count = 0;
+    let mut population = p0;
+    while population < p {
+        population += (population as f64 * (percent / 100.0)) as i32 + aug;
+        count += 1;
+    }
+    count
+}
+
+fn remove_smallest(numbers: &[u32]) -> Vec<u32> {
+    let mut index = 0;
+    let mut num_min = u32::MAX;
+    for (i, n) in numbers.iter().enumerate() {
+        if Some(n) < Some(&num_min) {
+            num_min = *n;
+            index = i;
+        }
+    }
+    let mut my_vec = vec![];
+    for (i, n) in numbers.iter().enumerate() {
+        if i == index {
+            continue;
+        }
+        my_vec.push(*n);
+    }
+    my_vec
+}
+
+fn square_digits(num: u64) -> u64 {
+    let mut my_vec: Vec<_> = vec![];
+    for i in num.to_string().chars() {
+        my_vec.push(i.to_digit(10).unwrap().pow(2).to_string());
+        println!("{}", i);
+    }
+    my_vec.join("").to_string().parse::<u64>().unwrap()
+}
+
+fn positive_sum(slice: &[i32]) -> i32 {
+    slice.iter().filter(|x| x.is_positive()).sum()
+}
+
+fn generate_shape(n: i32) -> String {
+    let mut my_string = String::new();
+    for i in 0..n {
+        for _ in 0..n {
+            my_string.push('+');
+        }
+        if i == n - 1 {
+            continue;
+        }
+        my_string.push('\n');
+    }
+    // my_string.pop().expect("failed to remove last");
+    my_string
 }
